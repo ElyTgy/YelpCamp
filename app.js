@@ -59,10 +59,14 @@ app.use(passport.session());
 passport.use(new LocalStrategy(user.authenticate()));
 
 passport.serializeUser(user.serializeUser());
-passport.serializeUser(user.deserializeUser());
+passport.deserializeUser(user.deserializeUser());
 
 app.use("/campgrounds", campgroundsRoutes);
 app.use("/auth", authRoutes);
+
+app.get("/", (req, res)=>{
+    res.send("Landing page");
+})
 
 app.all('*', (req, res, next)=>{
     next(new AppError(404, "Page Not Found"))
